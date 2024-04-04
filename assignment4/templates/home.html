@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container " style="margin: auto; width: 50%;">
+    <div class="row justify-content-center ">
+        {% for task_model, task_category in zipped_data %}
+        <div class="col-mb-4 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> ID: {{ task_model.id }}</h5>
+                    <h5 class="card-title"> DATE: {{ task_model.Task_Assign_Date}}</h5>
+                    <h5 class="card-title"> TITLE: {{ task_model.taskTitle }}</h5>
+                    <p class="card-text"> DESCRIPTION: {{ task_model.taskDescription }}</p>
+                    <p class="card-text"> CATEGORY: {{ task_category.categoryName }}</p>
+
+                    {% if task_model.is_completed %}
+                    <button class="btn btn-danger disabled">Completed</button>
+                    {% else %}
+                    <a href="{% url 'editmodel' task_model.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'dltmodel' task_model.id %}" class="btn btn-warning" Dis>Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
